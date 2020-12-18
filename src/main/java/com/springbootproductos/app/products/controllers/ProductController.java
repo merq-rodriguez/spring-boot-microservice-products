@@ -34,7 +34,10 @@ public class ProductController {
   }
 
   @GetMapping("/{id}")
-  public Product findProductById(@PathVariable Long id){
+  public Product findProductById(@PathVariable Long id) throws Exception {
+   /*  boolean ok = false;
+    if(ok == false)
+      throw new Exception("Can't load product"); */
     Product product = productService.findById(id);
     product.setPort(Integer.parseInt(env.getProperty("local.server.port")));
     return product;
