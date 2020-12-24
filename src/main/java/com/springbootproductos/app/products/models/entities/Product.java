@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.PrePersist;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -23,22 +24,14 @@ public class Product implements Serializable {
   private Long id;
   private String name;
   private Long price;
-  private Integer port;
 
+  
   @Column(name = "created_at")
   @Temporal(TemporalType.DATE)
   private Date createdAt;
 
   public Long getId() {
     return id;
-  }
-
-  public Integer getPort() {
-    return port;
-  }
-
-  public void setPort(Integer port) {
-    this.port = port;
   }
 
   public Date getCreatedAt() {
@@ -67,5 +60,10 @@ public class Product implements Serializable {
 
   public void setPrice(Long price) {
     this.price = price;
+  }
+
+  @PrePersist()
+  public void onCreate(){
+    createdAt = new Date();
   }
 }
